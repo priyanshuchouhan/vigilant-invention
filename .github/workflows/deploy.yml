@@ -1,0 +1,30 @@
+name: Deploy ECS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Login ECR
+      uses: aws-actions/amazon-ecr-login@v2
+
+    - name: Build Image
+      run: |
+        docker build -t todo-api .
+
+    - name: Push Image
+      run: |
+        echo "Push to ECR"
+
+    - name: Deploy ECS
+      run: |
+        echo "Deploy ECS"
